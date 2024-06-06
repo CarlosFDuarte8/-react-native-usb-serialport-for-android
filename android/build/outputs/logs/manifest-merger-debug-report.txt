@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:1:1-6:12
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:1:1-6:12
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:1:1-6:12
+	package
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:2:11-48
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:1:11-69
+uses-feature#android.hardware.usb.host
+ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:3:3-60
+	android:name
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:3:17-57
+uses-permission#android.permission.MANAGE_USB
+ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:4:3-67
+	android:name
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:4:20-64
+uses-permission#android.permission.USB_PERMISSION
+ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:5:3-71
+	android:name
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:5:20-68
+uses-sdk
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+		ADDED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml

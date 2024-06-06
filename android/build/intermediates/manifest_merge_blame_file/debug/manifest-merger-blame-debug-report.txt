@@ -1,0 +1,22 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.bastengao.usbserialport" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="16"
+6-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+7        android:targetSdkVersion="30" />
+7-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml
+8
+9    <uses-feature android:name="android.hardware.usb.host" />
+9-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:3:3-60
+9-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:3:17-57
+10
+11    <uses-permission android:name="android.permission.MANAGE_USB" />
+11-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:4:3-67
+11-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:4:20-64
+12    <uses-permission android:name="android.permission.USB_PERMISSION" />
+12-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:5:3-71
+12-->C:\Users\carlo\Projetos INV\Health\noar-health-app\node_modules\react-native-usb-serialport-for-android\android\src\main\AndroidManifest.xml:5:20-68
+13
+14</manifest>
