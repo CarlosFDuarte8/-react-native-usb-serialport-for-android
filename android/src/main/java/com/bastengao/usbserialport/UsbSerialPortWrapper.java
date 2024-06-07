@@ -41,36 +41,45 @@ public class UsbSerialPortWrapper implements SerialInputOutputManager.Listener {
 
   public void onNewData(byte[] data) {
     try {
-        WritableMap event = Arguments.createMap();
-        String hex = UsbSerialportForAndroidModule.bytesToHex(data);
-        String value = new String(data, StandardCharsets.ISO_8859_1);
-        int[] byteArray = new int[data.length];
-        for (int i = 0; i < data.length; i++) {
-            byteArray[i] = data[i] & 0xFF; // Converte byte para inteiro sem sinal
-        }
+      WritableMap event = Arguments.createMap();
+      String hex = UsbSerialportForAndroidModule.bytesToHex(data);
+      String value = new String(data, StandardCharsets.ISO_8859_1);
+      WritableArray byteArrayWritable = Arguments.createArray();
 
-        event.putInt("deviceId", this.deviceId);
-        event.putString("data", hex);
-        event.putString("value", value);
-        WritableArray byteArrayWritable = Arguments.createArray();
-        for (int byteValue : byteArray) {
-            byteArrayWritable.pushInt(byteValue);
-        }
-        event.putArray("rawData", byteArrayWritable);
-        Log.d("usbserialport", hex);
-        sender.sendEvent(DataReceivedEvent, event);
-    } catch (Exception e) {
-        // Handle the disconnection
-        WritableMap errorEvent = Arguments.createMap();
-        errorEvent.putInt("deviceId", this.deviceId);
-        errorEvent.putString("error", "USB disconnected");
-        Log.e("usbserialport", "USB disconnected", e);
-        sender.sendEvent(ErrorEvent, errorEvent);
+      for (byte b : data) {
+        byteArrayWritable.pushInt(b & 0xFF); // Converte byte para inteiro sem sinal e adiciona ao array
+      }
+
+      event.putInt("deviceId", this.deviceId);
+      event.putString("data", hex);
+      event.putString("value", value);
+      event.putArray("rawData", byteArrayWritable);
+
+      Log.d("usbserialport", "Data received (hex): " + hex);
+      Log.d("usbserialport", "Data received (value): " + value);
+
+      sender.sendEvent(DataReceivedEvent, event);
+    } catch (Exception e) { // Trata todas as exceções inesperadas
+      WritableMap errorEvent = Arguments.createMap();
+      errorEvent.putInt("deviceId", this.deviceId);
+      errorEvent.putString("error", "Unexpected error");
+      Log.e("usbserialport", "Unexpected error", e);
+      sender.sendEvent(ErrorEvent, errorEvent);
     }
-}
+  }
 
   public void onRunError(Exception e) {
-    // TODO: implement
+    // Manipulação de erros de execução, incluindo desconexão do dispositivo
+    WritableMap errorEvent = Arguments.createMap();
+    errorEvent.putInt("deviceId", this.deviceId);
+    errorEvent.putString("error", "Run error: " + e.getMessage());
+    Log.e("usbserialport", "Run error", e);
+    sender.sendEvent(ErrorEvent, errorEvent);
+
+    // Interromper o ioManager e liberar recursos
+    if (ioManager != null) {
+        ioManager.stop();
+    }
   }
 
   public void close() {

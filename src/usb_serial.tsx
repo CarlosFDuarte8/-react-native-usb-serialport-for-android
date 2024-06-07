@@ -2,6 +2,7 @@ import type { EventEmitter, EventSubscription } from 'react-native';
 import UsbSerialportForAndroid from './native_module';
 
 const DataReceivedEvent = 'usbSerialPortDataReceived';
+const ErrorEvent = 'Error';
 
 export interface EventData {
   deviceId: number;
@@ -11,12 +12,19 @@ export interface EventData {
   data: string;
 }
 
+export interface ErrorEventData {
+  deviceId: number;
+  error: string;
+}
+
 export type Listener = (data: EventData) => void;
+export type ErrorListener = (error: ErrorEventData) => void;
 
 export default class UsbSerial {
   deviceId: number;
   private eventEmitter: EventEmitter;
   private listeners: Listener[];
+  private errorListeners: ErrorListener[];
   private subscriptions: EventSubscription[];
   private result: any;
 
@@ -24,6 +32,7 @@ export default class UsbSerial {
     this.deviceId = deviceId;
     this.eventEmitter = eventEmitter;
     this.listeners = [];
+    this.errorListeners = [];
     this.subscriptions = [];
     this.result = result;
   }
@@ -43,7 +52,7 @@ export default class UsbSerial {
     return UsbSerialportForAndroid.send(this.deviceId, hexStr);
   }
 
-  async whiteToUsbPort(base64: string): Promise<any> {
+  async writeToUsbPort(base64: string): Promise<any> {
     try {
       await UsbSerialportForAndroid.writeToUsbPort(this.deviceId, base64);
       return null;
@@ -81,7 +90,7 @@ export default class UsbSerial {
    * @param listener
    * @returns EventSubscription
    */
-  onReceived(listener: Listener) {
+  onReceived(listener: Listener): EventSubscription {
     const listenerProxy = (event: EventData) => {
       if (event.deviceId !== this.deviceId) {
         return;
@@ -100,6 +109,28 @@ export default class UsbSerial {
   }
 
   /**
+   * Listen to error events.
+   *
+   * @param listener
+   * @returns EventSubscription
+   */
+  onError(listener: ErrorListener): EventSubscription {
+    const listenerProxy = (event: ErrorEventData) => {
+      if (event.deviceId !== this.deviceId) {
+        return;
+      }
+
+      listener(event);
+    };
+
+    this.errorListeners.push(listenerProxy);
+    const sub = this.eventEmitter.addListener(ErrorEvent, listenerProxy);
+    this.subscriptions.push(sub);
+    return sub;
+  }
+
+  /**
+   * Close the connection and clean up resources.
    *
    * May return error with these codes:
    * * DEVICE_NOT_OPEN_OR_CLOSED
@@ -111,12 +142,41 @@ export default class UsbSerial {
     for (const sub of this.subscriptions) {
       sub.remove();
     }
+    this.listeners = [];
+    this.errorListeners = [];
+    this.subscriptions = [];
     return UsbSerialportForAndroid.close(this.deviceId);
   }
 
+  /**
+   * Start listening for USB events.
+   *
+   * @param vendorId
+   * @param productId
+   * @returns Promise<any>
+   */
   startListening(vendorId: number, productId: number): Promise<any> {
     const result = UsbSerialportForAndroid.startListening(vendorId, productId);
     console.log(result);
-    return result
+    return result;
+  }
+
+  /**
+   * Monitor data received and error events.
+   *
+   * @param onDataReceived
+   * @param onError
+   * @returns { close: () => void }
+   */
+  monitor(onDataReceived: Listener, onError: ErrorListener): { close: () => void } {
+    const dataSub = this.onReceived(onDataReceived);
+    const errorSub = this.onError(onError);
+
+    return {
+      close: () => {
+        dataSub.remove();
+        errorSub.remove();
+      }
+    };
   }
 }
